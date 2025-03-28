@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 16px;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    button {
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .primary-button {
+      background-color: #2D9CDB;
+      color: white;
+    }
+    .primary-button:hover {
+      background-color: #2486C0;
+    }
+    .secondary-button {
+      background-color: #F2F2F2;
+      color: #333;
+    }
+    .secondary-button:hover {
+      background-color: #EAEAEA;
+    }
+    .settings-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .settings-group h3 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+    }
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    select, input {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #E0E0E0;
+    }
+    .footer {
+      margin-top: 16px;
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>AttentionMapper</h2>
+    <p>Predict where users will focus their attention on your design.</p>
+    
+    <div class="settings-group">
+      <h3>User Demographics</h3>
+      <label>
+        User Type
+        <select id="user-type">
+          <option value="general">General Users</option>
+          <option value="tech-savvy">Tech-Savvy Users</option>
+          <option value="seniors">Senior Users</option>
+          <option value="children">Children</option>
+        </select>
+      </label>
+    </div>
+    
+    <div class="settings-group">
+      <h3>Device Settings</h3>
+      <label>
+        Device Type
+        <select id="device-type">
+          <option value="desktop">Desktop</option>
+          <option value="mobile">Mobile</option>
+          <option value="tablet">Tablet</option>
+        </select>
+      </label>
+    </div>
+    
+    <div class="settings-group">
+      <h3>Accessibility</h3>
+      <label>
+        Simulate Visual Impairment
+        <input type="checkbox" id="visual-impairment">
+      </label>
+    </div>
+    
+    <button class="primary-button" id="generate-button">Generate Heatmap</button>
+    <button class="secondary-button" id="export-button">Export Analysis</button>
+    <button class="secondary-button" id="cancel-button">Close</button>
+    
+    <div class="footer">
+      AttentionMapper v1.0 • AI-Powered Attention Prediction
+    </div>
+  </div>
+
+  <script>
+    // Send message to the plugin code
+    document.getElementById('generate-button').onclick = () => {
+      const settings = {
+        userType: document.getElementById('user-type').value,
+        deviceType: document.getElementById('device-type').value,
+        visualImpairment: document.getElementById('visual-impairment').checked
+      };
+      
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'generate-heatmap',
+          settings: settings
+        } 
+      }, '*');
+    };
+    
+    document.getElementById('export-button').onclick = () => {
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'export-analysis'
+        } 
+      }, '*');
+    };
+    
+    document.getElementById('cancel-button').onclick = () => {
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'cancel'
+        } 
+      }, '*');
+    };
+  </script>
+</body>
+</html>

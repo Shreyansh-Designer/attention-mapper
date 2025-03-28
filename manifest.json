@@ -1,0 +1,30 @@
+
+{
+  "name": "AttentionMapper",
+  "id": "attention-mapper-plugin",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "menu": [
+    {
+      "name": "Generate Attention Heatmap",
+      "command": "generate-heatmap"
+    },
+    {
+      "name": "Customize Settings",
+      "command": "customize-settings"
+    },
+    {
+      "name": "Export Analysis",
+      "command": "export-analysis"
+    },
+    {
+      "separator": true
+    },
+    {
+      "name": "About",
+      "command": "about"
+    }
+  ]
+}
